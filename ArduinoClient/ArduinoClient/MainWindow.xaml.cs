@@ -11,6 +11,7 @@ namespace ArduinoClient
     /// </summary>
     public partial class MainWindow
     {
+        private Socket _sender;
         public MainWindow()
         {
             InitializeComponent();
@@ -18,38 +19,31 @@ namespace ArduinoClient
 
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
-            SocketClient();
+            ConnectSocketClient();
         }
 
-        private void SocketClient()
+        private void ConnectSocketClient()
         {
             var bytes = new byte[1024];
-            var adreess = new IPEndPoint(IPAddress.Parse("192.168.2.32"), 23);
-            var sender = new Socket(AddressFamily.InterNetwork,
+            var adreess = new IPEndPoint(IPAddress.Parse("192.168.1.177"), 23);
+             _sender = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
-
+            
+          
             // Connect the socket to the remote endpoint. Catch any errors.
             try
             {
-                sender.Connect(adreess);
+                _sender.Connect(adreess);
 
                 MessageBox.Show("Socket connected to {0}",
-                    sender.RemoteEndPoint.ToString());
-
-                // Encode the data string into a byte array.
-                byte[] msg = Encoding.ASCII.GetBytes("This is a test<EOF>");
-
-                // Send the data through the socket.
-                int bytesSent = sender.Send(msg);
-
-                // Receive the response from the remote device.
-                int bytesRec = sender.Receive(bytes);
-                MessageBox.Show("Echoed test = {0}",
-                    Encoding.ASCII.GetString(bytes, 0, bytesRec));
-
-                // Release the socket.
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
+                    _sender.RemoteEndPoint.ToString());
+                
+                
+                //int bytesRec = _sender.Receive(bytes);
+                //MessageBox.Show("Echoed test = {0}",
+                //    Encoding.ASCII.GetString(bytes, 0, bytesRec));
+                //_sender.Shutdown(SocketShutdown.Both);
+               // _sender.Close();
 
             }
             catch (ArgumentNullException ane)
@@ -60,6 +54,28 @@ namespace ArduinoClient
 
         }
 
+        private void Led1Click(object sender, RoutedEventArgs e)
+        {
+            SendData("1");
+        }
 
+        private void Led2Click(object sender, RoutedEventArgs e)
+        {
+            SendData("2");
+        }
+
+        private void Led3Click(object sender, RoutedEventArgs e)
+        {
+            SendData("3");
+        }
+
+        private void SendData(String sData)
+        {
+            
+            var msg = Encoding.ASCII.GetBytes(sData);
+            _sender.Send(msg);
+            
+           
+        }
     }
 }

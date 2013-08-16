@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Height="87" Margin="145,114,0,0" VerticalAlignment="Top" Width="175" Click="ButtonClick"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Height="87" Margin="28,89,0,0" VerticalAlignment="Top" Width="175" Click="ButtonClick"/>
+        <Button Content="LED1" HorizontalAlignment="Left" Height="32" Margin="332,70,0,0" VerticalAlignment="Top" Width="64"  Click="Led1Click"/>
+        <Button Content="LED2" HorizontalAlignment="Left" Height="32" Margin="332,107,0,0" VerticalAlignment="Top" Width="64" Click="Led2Click" />
+        <Button Content="LED3" HorizontalAlignment="Left" Height="32" Margin="332,151,0,0" VerticalAlignment="Top" Width="64" Click="Led3Click"/>
 
     </Grid>
 </Window>
